@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Attendance</string>
     <string name="create_Account">Create new account?</string>
+
+    <string-array name="schools">
+        <item>School not selected</item>
+        <item>Nackademin</item>
+    </string-array>
+    <string-array name="nackademin_classes">
+        <item>Class not selected</item>
+        <item>MA18</item>
+        <item>MA17</item>
+    </string-array>
+
 </resources>

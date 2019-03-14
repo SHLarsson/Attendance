@@ -19,6 +19,7 @@ public class CheckinActivity extends AppCompatActivity {
 
     private boolean checkedin = false;
     private  Button checkinButton;
+    private TextView infoText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +29,11 @@ public class CheckinActivity extends AppCompatActivity {
 
         String pattern = "HH:mm";
         SimpleDateFormat timeFormat = new SimpleDateFormat(pattern);
-        // api 21
         TextView displaySort = findViewById(R.id.time);
         displaySort.setText("You need to check in");
         displaySort.setText(timeFormat.format(currentTime) + "");
 
+        infoText = findViewById(R.id.infoText);
         checkinButton = (Button)findViewById(R.id.button);
     }
     void checkin(View view){
@@ -47,26 +48,28 @@ public class CheckinActivity extends AppCompatActivity {
         Button checkinButton = (Button)findViewById(R.id.button);
         if(checkedin){
             checkinButton.setText("Check out");
-            checkinButton.setBackgroundColor(Color.parseColor("#F20069"));
+            checkinButton.setBackgroundColor(Color.parseColor("#FF4181"));
+            infoText.setText("You checked in at");
         }else{
             checkinButton.setText("Check in");
             checkinButton.setBackgroundColor(Color.parseColor("#03DAC6"));
-
+            infoText.setText("You're not checked in");
         }
     }
     void alert(){
         new AlertDialog.Builder(this)
                 .setTitle("Are you sure you want to check out?")
                 .setMessage("checking out will end your attendance!")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Check out", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         checkedin = false;
                         checkinButton.setText("Check in");
                         checkinButton.setBackgroundColor(Color.parseColor("#03DAC6"));
+                        infoText.setText("You're not checked in");
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //dismiss

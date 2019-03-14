@@ -50,7 +50,7 @@
         android:id="@+id/loginButton"
 
         style="@style/AppTheme.RoundedCornerMaterialButton"
-        android:layout_width="181dp"
+        android:layout_width="277dp"
 
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -1,9 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignupActivity">
+    tools:context=".LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/input_email"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="133dp"
+        android:gravity="center"
+        android:hint="Email"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="354dp" />
+
+    <EditText
+        android:id="@+id/input_password2"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="195dp"
+        android:gravity="center"
+        android:hint="Full name"
+        android:inputType="text"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="274dp" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="275dp"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:hint="Password"
+        android:inputType="textPassword"
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="274dp" />
+
+    <Button
+        android:id="@+id/loginButton"
+
+        style="@style/AppTheme.RoundedCornerMaterialButton"
+        android:layout_width="277dp"
+
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="71dp"
+
+        android:onClick="signupComplete"
+        android:text="login"
+        tools:layout_editor_absoluteX="102dp"
+        tools:layout_editor_absoluteY="457dp" />
+
+    <Spinner
+        android:id="@+id/schoolSpinner"
+
+        style="@style/Widget.AppCompat.Spinner"
+
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="211dp"
+        android:gravity="center"
+        android:textAlignment="center" />
+
+    <Spinner
+        android:id="@+id/classSpinner"
+
+        style="@style/Widget.AppCompat.Spinner"
+
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="157dp"
+        android:gravity="center"
+        android:textAlignment="center" />
+
+</RelativeLayout>
