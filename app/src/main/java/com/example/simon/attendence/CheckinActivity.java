@@ -12,19 +12,30 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CheckinActivity extends AppCompatActivity {
+
+    FirebaseFirestore db;
 
     private boolean checkedin = false;
     private  Button checkinButton;
     private TextView infoText;
+    private String fullName = "Simon Larsson";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkin);
+
+        db = FirebaseFirestore.getInstance();
+
         Date currentTime = Calendar.getInstance().getTime();
 
         String pattern = "HH:mm";
@@ -35,6 +46,14 @@ public class CheckinActivity extends AppCompatActivity {
 
         infoText = findViewById(R.id.infoText);
         checkinButton = (Button)findViewById(R.id.button);
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("Time",timeFormat.format(currentTime) + "");// make time = timeFormat.format(currentTime) + "" variable
+        db.collection("attaendance").document(fullName).set(data);//time and fullName add
+
+        //CollectionReference itemsRef = db.collection("attaendance");
+        //itemsRef.add(data);
+
     }
     void checkin(View view){
 
@@ -77,4 +96,8 @@ public class CheckinActivity extends AppCompatActivity {
                 })
                 .show();
     }
+
+    @Override
+    public void onBackPressed(){/*Do nothing*/}
+
 }
