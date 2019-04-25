@@ -21,7 +21,7 @@
         tools:layout_editor_absoluteY="354dp" />
 
     <EditText
-        android:id="@+id/input_password2"
+        android:id="@+id/input_fullName"
         android:layout_width="275dp"
         android:layout_height="wrap_content"
 
@@ -57,8 +57,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="71dp"
 
-        android:onClick="signupComplete"
-        android:text="login"
+        android:onClick= "signUpAttempt"
+        android:text="Sign up"
         tools:layout_editor_absoluteX="102dp"
         tools:layout_editor_absoluteY="457dp" />
 

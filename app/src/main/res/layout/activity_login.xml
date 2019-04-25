@@ -57,7 +57,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="71dp"
 
-        android:onClick="loginComplete"
+        android:onClick="signInAttempt"
         android:text="login"
         tools:layout_editor_absoluteX="102dp"
         tools:layout_editor_absoluteY="457dp" />
