@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         if ( user != null) {
             Log.d("!!!","loggdIn: " + user.getEmail());
-            //do something
+            loginComplete();
 
         } else {
             Log.d("!!!", "no user");

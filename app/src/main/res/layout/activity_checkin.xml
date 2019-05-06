@@ -46,6 +46,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
-        app:srcCompat="@drawable/settings_icon" />
+        app:srcCompat="@drawable/settings_icon"
+        android:onClick="showPopup"/>
 
 </RelativeLayout>

@@ -10,17 +10,29 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CheckinActivity extends AppCompatActivity {
+public class CheckinActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     FirebaseFirestore db;
 
@@ -39,14 +51,23 @@ public class CheckinActivity extends AppCompatActivity {
     private WifiManager wifiManager;
     private String date;
 
+    private FirebaseAuth auth;
+
     private List<ScanResult> results;
 
+    private String username;
+
+    private Map<String, Object> data;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkin);
 
         db = FirebaseFirestore.getInstance();
+
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+
 
         Date currentTime = Calendar.getInstance().getTime();
 
@@ -65,16 +86,27 @@ public class CheckinActivity extends AppCompatActivity {
         date = dateFormat.format(currentDate) + "";
 
         infoText = findViewById(R.id.infoText);
-        checkinButton = (Button)findViewById(R.id.button);
+        checkinButton = (Button) findViewById(R.id.button);
 
-        Map<String, Object> data = new HashMap<>();
-        data.put("Time",timeFormat.format(currentTime) + "");// make time = timeFormat.format(currentTime) + "" variable
-        db.collection(date).document(fullName).set(data);//time and fullName add
-
-        //CollectionReference itemsRef = db.collection("attaendance");
+        data = new HashMap<>();
+        data.put("Time", timeFormat.format(currentTime) + "");// make time = timeFormat.format(currentTime) + "" variable
+        //CollectionReference itemsRef = db.collection("attendance");
         //itemsRef.add(data);
         //scanWifi();
 
+        if (user != null) {
+            Log.d("!!!", user.getUid());
+
+            DocumentReference userRef = db.collection("users").document(user.getUid());
+
+           userRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    username = documentSnapshot.getString("username");
+                    db.collection(date).document(username).set(data);//time and fullName add
+                }
+            });
+        }
     }
     void checkin(View view){
 
@@ -116,6 +148,25 @@ public class CheckinActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    void showPopup(View view){
+        PopupMenu popup = new PopupMenu(this,view);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.poupup_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if (item.getItemId() == R.id.logout){
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     void checkWifi(){

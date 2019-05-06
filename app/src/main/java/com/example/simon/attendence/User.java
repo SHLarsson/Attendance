@@ -10,7 +10,7 @@ public class User {
     }
 
 
-    public User(String username, String password)
+    public User(String username, String usersClass)
     {
         this.username = username; //Parameterized for Program-Inhouse objects.
         this.usersClass = usersClass;
